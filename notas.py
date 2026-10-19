@@ -1,22 +1,25 @@
 
-notas = []   # aquí se guardan todas las notas
+notas = [] 
 
 
 def dni_correcto(dni):
-    # el DNI debe tener 8 números
     return dni.isdigit() and len(dni) == 8
 
 
 def bimestre_valido(bimestre):
-    return bimestre == "1" or bimestre == "2" or bimestre == "3" or bimestre == "4"
+    return bimestre in["1","2","3","4"]
 
 
 def nota_valida(nota):
-    # la nota debe ser un número entero entre 0 y 20
-    if nota.isdigit() == False:
+    if not nota.isdigit():
         return False
-    return int(nota) >= 0 and int(nota) <= 20
+    return 0 <= int(nota) <= 20
 
+def nota_repetida(dni, curso, bimestre):
+    for n in notas:
+        if n["dni"]==dni and n["curso"].lower()==curso.lower() and n["bimestre"]==bimestre:
+            return True
+        return False
 
 def registrar_nota():
     print("--- REGISTRAR NOTA ---")
@@ -25,14 +28,16 @@ def registrar_nota():
     bimestre = input("Bimestre (1 a 4): ")
     nota = input("Nota (0 a 20): ")
 
-    if dni_correcto(dni) == False:
+    if not dni_correcto(dni):
         print("El DNI debe tener 8 números.")
     elif curso == "":
         print("Debe ingresar el curso.")
-    elif bimestre_valido(bimestre) == False:
+    elif not bimestre_valido(bimestre):
         print("El bimestre debe ser 1, 2, 3 o 4.")
-    elif nota_valida(nota) == False:
+    elif not nota_valida(nota):
         print("La nota debe ser un número entre 0 y 20.")
+    elif nota_repetida(dni, curso, bimestre):
+        print("Error:Ya exite una nota de ese curso y bimestre para este estudiante.")
     else:
         registro = {
             "dni": dni,
@@ -55,8 +60,6 @@ def mostrar_notas():
     if encontro == False:
         print("Ese estudiante no tiene notas registradas.")
 
-
-# Menú de prueba (solo se usa si ejecutan este archivo solo)
 if __name__ == "__main__":
     opcion = ""
     while opcion != "0":
