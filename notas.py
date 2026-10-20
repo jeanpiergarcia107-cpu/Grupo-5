@@ -17,17 +17,19 @@ def nota_valida(nota):
 
 def nota_repetida(dni, curso, bimestre):
     for n in notas:
-        if n["dni"]==dni and n["curso"].lower()==curso.lower() and n["bimestre"]==bimestre:
+        if (n["dni"] == dni
+                and n["curso"].lower() == curso.lower()
+                and n["bimestre"] == bimestre):
             return True
-        return False
+    return False
 
 def registrar_nota():
     print("--- REGISTRAR NOTA ---")
-    dni = input("DNI del estudiante: ")
-    curso = input("Curso (Matemática, Comunicación, etc.): ")
-    bimestre = input("Bimestre (1 a 4): ")
-    nota = input("Nota (0 a 20): ")
-
+    dni = input("DNI del estudiante: ").strip()
+    curso = input("Curso (Matemática, Comunicación, etc.): ").strip()
+    bimestre = input("Bimestre (1 a 4): ").strip()
+    nota = input("Nota (0 a 20): ").strip()
+    
     if not dni_correcto(dni):
         print("El DNI debe tener 8 números.")
     elif curso == "":
