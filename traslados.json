@@ -1,0 +1,12 @@
+[
+    {
+        "DNI": "11223344",
+        "Nombres": "Maria",
+        "Apellidos": "Gomez",
+        "Grado": "5",
+        "Seccion": "A",
+        "Colegio destino": "virgen del rosario",
+        "Motivo": "Motivos personales",
+        "Estado": "Trasladado"
+    }
+]
