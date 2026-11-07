@@ -1,12 +1,12 @@
 [
     {
-        "DNI": "11223344",
-        "Nombres": "Maria",
-        "Apellidos": "Gomez",
+        "DNI": "60693614",
+        "Nombres": "anayeli",
+        "Apellidos": "calderon saavedra",
         "Grado": "5",
         "Seccion": "A",
-        "Colegio destino": "virgen del rosario",
-        "Motivo": "Motivos personales",
+        "Colegio de destino": "virgen del carmen",
+        "Motivo": "motivos personales",
         "Estado": "Trasladado"
     }
 ]
