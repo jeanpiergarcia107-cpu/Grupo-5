@@ -2,8 +2,11 @@
 import json
 import os
 
-ARCHIVO_ESTUDIANTES = "estudiantes.json"
-ARCHIVO_TRASLADOS = "traslados.json"
+# Rutas de los archivos JSON en la misma carpeta del programa
+CARPETA = os.path.dirname(os.path.abspath(__file__))
+
+ARCHIVO_ESTUDIANTES = os.path.join(CARPETA, "estudiantes.json")
+ARCHIVO_TRASLADOS = os.path.join(CARPETA, "traslados.json")
 
 traslados = []
 
@@ -41,8 +44,12 @@ def dni_correcto(dni):
 
 
 def buscar_estudiante(dni, estudiantes):
+    dni = dni.strip()
+
     for estudiante in estudiantes:
-        if estudiante["DNI"] == dni:
+        dni_guardado = str(estudiante.get("DNI", "")).strip()
+
+        if dni_guardado == dni:
             return estudiante
 
     return None
@@ -68,6 +75,7 @@ def registrar_traslado():
 
     if estudiante is None:
         print("Error: estudiante no encontrado.")
+        print("Verifique que el DNI este registrado en matricula.")
         return
 
     if estudiante.get("Estado", "Matriculado") == "Trasladado":
@@ -96,10 +104,10 @@ def registrar_traslado():
 
     registro = {
         "DNI": dni,
-        "Nombres": estudiante["Nombres"],
-        "Apellidos": estudiante["Apellidos"],
-        "Grado": estudiante["Grado"],
-        "Seccion": estudiante["Seccion"],
+        "Nombres": estudiante.get("Nombres", ""),
+        "Apellidos": estudiante.get("Apellidos", ""),
+        "Grado": estudiante.get("Grado", ""),
+        "Seccion": estudiante.get("Seccion", ""),
         "Colegio de destino": destino,
         "Motivo": motivo,
         "Estado": "Trasladado"
@@ -116,6 +124,8 @@ def registrar_traslado():
 
 
 def mostrar_traslados():
+    cargar_traslados()
+
     print("\n--- LISTA DE TRASLADOS ---")
 
     if len(traslados) == 0:
@@ -130,6 +140,8 @@ def mostrar_traslados():
 
 
 def buscar_traslado():
+    cargar_traslados()
+
     print("\n--- BUSCAR TRASLADO ---")
 
     dni = input("Ingrese el DNI del estudiante: ").strip()
@@ -141,7 +153,7 @@ def buscar_traslado():
     encontrado = False
 
     for traslado in traslados:
-        if traslado["DNI"] == dni:
+        if str(traslado.get("DNI", "")).strip() == dni:
             print("\n--- DATOS DEL TRASLADO ---")
 
             for dato, valor in traslado.items():
